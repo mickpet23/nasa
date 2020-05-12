@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>NASA</title>
+</head>
+<body>
+	<img id="pic" src="" alt="NASA Picture Of The Day" width="75%">
+	<p id="explanation"></p>
+
+	<script type="text/javascript">
+		let req = new XMLHttpRequest();
+		let url = "https://api.nasa.gov/planetary/apod?api_key=";
+		let api_key = "DEMO_KEY";
+
+		req.open("GET", url + api_key);
+		req.send();
+		
+		req.addEventListener("load", function() {
+			if (req.status == 200 && req.readyState == 4) {
+				console.log('fired');
+				let response = JSON.parse(req.responseText);
+				document.getElementById("pic").src = response.hdurl;
+				document.getElementById("explanation").textContent = response.explanation;
+			}
+		})
+	</script>
+</body>
+</html>
